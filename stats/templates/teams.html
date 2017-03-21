@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+
+<head>
+	<title>PUT TITLE HERE</title>
+</head>
+
+<body>
+	{% for team, data in teamData.items %}
+	<h1>{{data.name}}</h1>
+	<ul>
+		<li>Top - {{data.positions.top}}</li>
+		<li>Jungle - {{data.positions.jgl}}</li>
+		<li>Mid - {{data.positions.mid}}</li>
+		<li>AD Carry - {{data.positions.adc}}</li>
+		<li>Support - {{data.positions.sup}}</li>
+		{% if data.positions.coach %}
+			<li>Coach - {{data.positions.coach}}</li>
+		{% endif %}
+		{% if data.positions.sub1 %}
+			<li>Substitute 1 - {{data.positions.sub1}}</li>
+		{% endif %}
+		{% if data.positions.sub2 %}
+			<li>Substitute 2 - {{data.positions.sub2}}</li>
+		{% endif %}
+
+	</ul>
+	{% endfor %}
+</body>
+
+</html>
