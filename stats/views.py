@@ -14,7 +14,7 @@ def view_teams(request):
 	for member in pulled_data["rplmember"]:
 		teamList[member] = pulled_data["rplmember"][member]
 	teamData = {}
-	teamList["-"] = "None"
+	teamList["-"] = "TBD"
 	for team in pulled_data["teams"]:
 		team = pulled_data["teams"][team]
 		teamData[team["team"]] = {
