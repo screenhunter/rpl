@@ -10,7 +10,7 @@ def list_stats(request):
 
 def view_teams(request):
 	teamList = {}
-	pulled_data = db.get().val()
+	pulled_data = db.child("spring2017").get().val()
 	for member in pulled_data["rplmember"]:
 		teamList[member] = pulled_data["rplmember"][member]
 	teamData = {}
