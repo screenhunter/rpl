@@ -10,19 +10,27 @@ def list_stats(request):
 
 def view_teams(request):
 	teamList = {}
-	for member in db.child("rplmember").get().each():
-		teamList[int(member.key())] = str(member.val())
+	pulled_data = db.get().val()
+	for member in pulled_data["rplmember"]:
+		teamList[member] = pulled_data["rplmember"][member]
 	teamData = {}
-	for team in db.child("teams").shallow().get().each():
-		team = str(team)
-		teamData[team] = {}
-		teamData[team]["positions"] = {}
-		for item in db.child("teams").child(team).get().each():
-			if str(item.key()) == 'abbr' or str(item.val()) == '-':
-				continue
-			elif str(item.key()) == 'team':
-				teamData[team]['name'] = str(item.val())
-			else:
-				teamData[team]["positions"][str(item.key())] = teamList[item.val()]
+	teamList["-"] = "None"
+	for team in pulled_data["teams"]:
+		team = pulled_data["teams"][team]
+		teamData[team["team"]] = {
+			"top": teamList[str(team["top"])],
+			"jgl": teamList[str(team["jgl"])],
+			"mid": teamList[str(team["mid"])],
+			"adc": teamList[str(team["adc"])],
+			"sup": teamList[str(team["sup"])]
+		}
+		if (team["coach"] != "-"):
+			teamData[team["team"]]["coach"] = teamList[str(team["coach"])]
+		if (team["sub1"] != "-"):
+			teamData[team["team"]]["sub1"] = teamList[str(team["sub1"])]
+		if (team["sub2"] != "-"):
+			teamData[team["team"]]["sub1"] = teamList[str(team["sub2"])]
+
+	print(teamData)
 
 	return render(request, 'teams.html', {"teamData" : teamData})
