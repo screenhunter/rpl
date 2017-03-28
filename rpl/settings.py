@@ -125,10 +125,11 @@ STATIC_URL = '/static/'
 # firebase initialization
 import pyrebase
 config = {
-	"apiKey": "AIzaSyC51ybT-4KHMr6tV8yfNNbut0Q1PJtzy9g",
-	"authDomain": "rpldatabase-34454.firebaseapp.com",
-	"databaseURL": "https://rpldatabase-34454.firebaseio.com",
-	"storageBucket": "rpldatabase-34454.appspot.com"
+	"apiKey": "AIzaSyC7ppojcuU2400elu2yM1Uf6mKqiv8mOoI",
+	"authDomain": "risingsummoners-e4e70.firebaseapp.com",
+	"databaseURL": "https://risingsummoners-e4e70.firebaseio.com",
+	"storageBucket": "risingsummoners-e4e70.appspot.com",
+	"messagingSenderId": "405053867062"
 }
 FIREBASE = pyrebase.initialize_app(config)
 FIREBASE_DB = FIREBASE.database()

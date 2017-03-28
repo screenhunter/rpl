@@ -9,28 +9,22 @@ def list_stats(request):
 	return render(request, 'teams.html', {'items': ""})
 
 def view_teams(request):
-	teamList = {}
-	pulled_data = db.child("spring2017").get().val()
-	for member in pulled_data["rplmember"]:
-		teamList[member] = pulled_data["rplmember"][member]
+	pulled_data = db.child("winter2017").get().val()
 	teamData = {}
-	teamList["-"] = "TBD"
 	for team in pulled_data["teams"]:
 		team = pulled_data["teams"][team]
-		teamData[team["team"]] = {
-			"top": teamList[str(team["top"])],
-			"jgl": teamList[str(team["jgl"])],
-			"mid": teamList[str(team["mid"])],
-			"adc": teamList[str(team["adc"])],
-			"sup": teamList[str(team["sup"])]
+		teamData[team["abbr"]] = {
+			"top": team["top"],
+			"jgl": team["jgl"],
+			"mid": team["mid"],
+			"adc": team["adc"],
+			"sup": team["sup"]
 		}
 		if (team["coach"] != "-"):
-			teamData[team["team"]]["coach"] = teamList[str(team["coach"])]
+			teamData[team["abbr"]]["coach"] = team["coach"]
 		if (team["sub1"] != "-"):
-			teamData[team["team"]]["sub1"] = teamList[str(team["sub1"])]
+			teamData[team["abbr"]]["sub1"] = team["sub1"]
 		if (team["sub2"] != "-"):
-			teamData[team["team"]]["sub1"] = teamList[str(team["sub2"])]
-
-	print(teamData)
+			teamData[team["abbr"]]["sub1"] = team["sub2"]
 
 	return render(request, 'teams.html', {"teamData" : teamData})
